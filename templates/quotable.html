@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Случайная цитата</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .quote-box {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .quote-text {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .quote-author {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .new-quote {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quote-box">
+    <div class="quote-text" id="quote-text">{{ quote['content'] }}</div>
+    <div class="quote-author" id="quote-author">- {{ quote['author'] }}</div>
+    <button class="new-quote" onclick="fetchNewQuote()">Новая цитата</button>
+</div>
+
+<script>
+    async function fetchNewQuote() {
+        try {
+            const response = await fetch("/api/quote");
+            const data = await response.json();
+            document.getElementById("quote-text").textContent = data.content;
+            document.getElementById("quote-author").textContent = "- " + data.author;
+        } catch (error) {
+            console.error("Ошибка получения новой цитаты:", error);
+        }
+    }
+</script>
+
+</body>
+</html>

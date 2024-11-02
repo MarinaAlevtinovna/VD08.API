@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогноз погоды</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+    <h1 class="text-center mb-4">Сайт с прогнозом погоды в любой точке мира</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" class="form-inline justify-content-center mb-4">
+                <input type="text" name="city" class="form-control mr-2 w-75" placeholder="Введите город" required>
+                <button type="submit" class="btn btn-primary">Узнать погоду</button>
+            </form>
+
+            <div class="result text-center">
+                {% if weather %}
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h3 class="card-title">Погода в {{ weather['name'] }}</h3>
+                            <p class="card-text">Температура: {{ weather['main']['temp'] }}°C</p>
+                            <p class="card-text">Погода: {{ weather['weather'][0]['description'] | capitalize }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="result text-center">
+                {% if news %}
+                    <h2>Новости:</h2>
+                <ul>
+                    {% for article in news %}
+                        <li>
+                            <a href="{{ article['url'] }}">{{ article['title'] }}</a>
+                        </li>
+
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
